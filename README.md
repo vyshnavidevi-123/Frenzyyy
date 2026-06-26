@@ -1,10 +1,10 @@
-# 🎉 Frenzy
+# FRENZY
 
 A multiplayer party game web app — create a room, invite friends, and play a bunch of fun mini-games together in real time.
 
-🔗 **Live demo:** _add your Vercel link here once deployed_
+**Live demo:** vercel link will soon be updated
 
-## 🎮 Games Included
+## Games Included
 
 - **Bingo** — classic bingo, multiplayer style
 - **Quick Trivia** — fast-paced trivia rounds
@@ -14,14 +14,14 @@ A multiplayer party game web app — create a room, invite friends, and play a b
 - **Would You Rather**
 - **Play With Strangers** — jump into a room with random players
 
-## ✨ Features
+## Features
 
 - Create or join a game room with a room code
 - Real-time gameplay powered by Firebase
 - Player identity / presence tracking (so you can see who's online)
 - Clean, responsive UI built with React
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend:** React 18 + Vite — fast dev server and build tooling
 - **Routing:** React Router — client-side navigation between game pages (Home, Lobby, Create/Join Room, individual games)
@@ -32,7 +32,7 @@ A multiplayer party game web app — create a room, invite friends, and play a b
 - **Styling:** Mix of global CSS (`App.css`, `index.css`) and inline JS style objects (camelCase CSS-in-JS pattern, e.g. `button`, `backBtn` style objects)
 - **Deployment:** Vercel — static hosting with CI/CD from GitHub
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -74,25 +74,10 @@ VITE_FIREBASE_APP_ID=your_app_id
 
 4. Update `src/firebase.js` to read from these environment variables if it isn't already.
 
-> ⚠️ Never commit your `.env` file — it's already excluded via `.gitignore`.
+> Never commit your `.env` file — it's already excluded via `.gitignore`.
 
-## 📦 Build for Production
 
-```bash
-npm run build
-```
-
-This outputs a production-ready build to the `dist/` folder.
-
-## ☁️ Deployment (Vercel)
-
-1. Push this repo to GitHub.
-2. Go to [vercel.com](https://vercel.com), sign in with GitHub, and import the repo.
-3. Vercel auto-detects the Vite framework — no config needed.
-4. Add your Firebase environment variables in the Vercel project settings (Settings → Environment Variables).
-5. Deploy! You'll get a free `your-project.vercel.app` URL.
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 frenzy/
@@ -111,10 +96,10 @@ frenzy/
 └── README.md
 ```
 
-## 🤝 Contributing
+## Contributing
 
 This started as a fun personal project, but contributions, suggestions, and bug reports are welcome! Feel free to open an issue or submit a pull request.
 
-## 🙌 Acknowledgements
+## Acknowledgements
 
-Built with React, Vite, and Firebase. Made for fun game nights with friends.
+Built with React, Vite, and Firebase. Made for fun game time with friends.
