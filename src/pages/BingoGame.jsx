@@ -4,8 +4,6 @@ import { doc, onSnapshot, updateDoc, arrayUnion, getDoc } from "firebase/firesto
 import { db } from "../firebase";
 import { getPlayerSession } from "../playerIdentity";
 
-// ─── helpers ──────────────────────────────────────────────────────────────────
-
 function generateCard() {
   const numbers = Array.from({ length: 25 }, (_, i) => i + 1);
   for (let i = numbers.length - 1; i > 0; i--) {
@@ -67,7 +65,7 @@ function isCellWinning(ri, ci, lineStatus) {
 
 const BINGO_LETTERS = ["B", "I", "N", "G", "O"];
 
-// ─── component ────────────────────────────────────────────────────────────────
+// component 
 
 export default function BingoGame() {
   const { roomId } = useParams();
@@ -82,10 +80,11 @@ export default function BingoGame() {
   const [inputNum, setInputNum] = useState("");
   const [inputError, setInputError] = useState("");
   const [callCooldown, setCallCooldown] = useState(false);
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
   const inputRef = useRef(null);
 
-  // ── listen to room ──
+  // listen to room 
   useEffect(() => {
     if (!roomId) { navigate("/"); return; }
     const unsub = onSnapshot(doc(db, "rooms", roomId), (snap) => {
@@ -110,7 +109,7 @@ if (bingo.winner) {
     return () => unsub();
   }, [roomId, navigate]);
 
-  // ── init / load card ──
+  // init / load card
   useEffect(() => {
     if (!roomId || !playerId) return;
 
@@ -571,8 +570,12 @@ const s = {
   loadingText: { color: "rgba(255,255,255,0.4)", fontSize: "14px" },
 
   topBar: {
-    display: "flex", justifyContent: "space-between",
-    alignItems: "center", marginBottom: "24px",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  flexWrap: isMobile ? "wrap" : "nowrap",
+  gap: isMobile ? "10px" : "0",
+  marginBottom: "24px",
   },
   roomPill: {
     background: "rgba(255,255,255,0.06)",
@@ -613,10 +616,11 @@ const s = {
   },
 
   layout: {
-    display: "grid",
-    gridTemplateColumns: "auto 1fr",
-    gap: "28px",
-    alignItems: "start",
+  display: "grid",
+  gridTemplateColumns: isMobile ? "1fr" : "auto 1fr",
+  gap: isMobile ? "18px" : "28px",
+  alignItems: "start",
+},
   },
 
   // ── Card ──
@@ -636,8 +640,10 @@ const s = {
     padding: "3px 12px", fontSize: "12px", fontWeight: "600",
   },
   bingoHeader: {
-    display: "grid", gridTemplateColumns: "repeat(5, 62px)", gap: "4px",
-  },
+  display: "grid",
+  gridTemplateColumns: `repeat(5, ${isMobile ? "48px" : "62px"})`,
+  gap: "4px",
+},
   headerCell: {
     height: "36px", borderRadius: "10px",
     display: "flex", alignItems: "center", justifyContent: "center",
@@ -645,10 +651,9 @@ const s = {
     background: "rgba(255,255,255,0.06)",
   },
   grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(5, 62px)",
-    gridTemplateRows: "repeat(5, 62px)",
-    gap: "4px",
+  display: "grid",
+  gridTemplateColumns: `repeat(5, ${isMobile ? "48px" : "62px"})`,
+  gridTemplateRows: `repeat(5, ${isMobile ? "48px" : "62px"})`,
   },
   cell: {
     borderRadius: "12px",
