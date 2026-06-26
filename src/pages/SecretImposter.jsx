@@ -13,12 +13,12 @@ const VOTE_SECONDS = 20;
 const MIN_PLAYERS = 4;
 
 const FUNNY_REVEAL_LINES = [
-  "busted with their pants down 🩳",
-  "got caught faking it the whole time 🎭",
-  "fooled NOBODY but thought they did 😭",
-  "deserves an Oscar for that performance 🏆",
-  "is never living this down 💀",
-  "got exposed harder than a bad WiFi connection 📡",
+  "busted with their pants down",
+  "got caught faking it the whole time",
+  "fooled NOBODY but thought they did",
+  "deserves an Oscar for that performance",
+  "is never living this down",
+  "got exposed harder than a bad WiFi connection",
 ];
 
 export default function SecretImposter() {
@@ -201,12 +201,12 @@ export default function SecretImposter() {
   // ── PRE-GAME ──────────────────────────────────────────────────────────────
   if (!game) {
     return (
-      <div style={s.page}>
+      <div className="si-page" style={s.page}>
         <style>{globalAnim}</style>
-        <div style={s.container}>
+        <div className="si-container" style={s.container}>
           <div style={s.center2}>
-            <div style={s.bigEmoji}>🕵️</div>
-            <h1 style={s.title}>Secret Imposter</h1>
+            <div className="si-big-emoji" style={s.bigEmoji}>🕵️</div>
+            <h1 className="si-title" style={s.title}>Secret Imposter</h1>
             <p style={s.sub}>
               One of you won't know the secret word. Give hints. Don't get caught. 😈
             </p>
@@ -215,6 +215,7 @@ export default function SecretImposter() {
             )}
             {isHost ? (
               <button
+                className="si-start-btn"
                 style={{ ...s.startBtn, opacity: players.length < MIN_PLAYERS ? 0.4 : 1 }}
                 onClick={startGame}
                 disabled={players.length < MIN_PLAYERS}
@@ -239,18 +240,18 @@ export default function SecretImposter() {
   const funnyLine = FUNNY_REVEAL_LINES[game.round % FUNNY_REVEAL_LINES.length];
 
   return (
-    <div style={s.page}>
+    <div className="si-page" style={s.page}>
       <style>{globalAnim}</style>
-      <div style={s.container}>
+      <div className="si-container" style={s.container}>
 
         {game.phase !== "reveal-role" && (
-          <div style={s.topBar}>
-          <button style={s.backBtn} onClick={() => navigate(`/game-select/${roomId}`)}>
-  ← Games
-</button>
-            <div style={s.roundBadge}>🕵️ Round {game.round}</div>
+          <div className="si-top-bar" style={s.topBar}>
+            <button className="si-back-btn" style={s.backBtn} onClick={() => navigate(`/game-select/${roomId}`)}>
+              ← Games
+            </button>
+            <div className="si-round-badge" style={s.roundBadge}>🕵️ Round {game.round}</div>
             {(game.phase === "hints" || game.phase === "voting") && (
-              <div style={{ ...s.timer, color: timeLeft <= 5 ? "#f87171" : "#fff" }}>⏱ {timeLeft}s</div>
+              <div className="si-timer" style={{ ...s.timer, color: timeLeft <= 5 ? "#f87171" : "#fff" }}>⏱ {timeLeft}s</div>
             )}
           </div>
         )}
@@ -260,8 +261,8 @@ export default function SecretImposter() {
           <div style={s.center2}>
             {isImposter ? (
               <>
-                <div style={s.bigEmoji}>🤫</div>
-                <h2 style={s.qTitle}>You're the IMPOSTER!</h2>
+                <div className="si-big-emoji" style={s.bigEmoji}>🤫</div>
+                <h2 className="si-q-title" style={s.qTitle}>You're the IMPOSTER!</h2>
                 <p style={s.sub}>
                   Topic: <strong style={{ color: "#fff" }}>{game.topic}</strong><br />
                   You don't know the word — bluff your way through hints!
@@ -269,16 +270,16 @@ export default function SecretImposter() {
               </>
             ) : (
               <>
-                <div style={s.bigEmoji}>✅</div>
-                <h2 style={s.qTitle}>You're safe!</h2>
+                <div className="si-big-emoji" style={s.bigEmoji}>✅</div>
+                <h2 className="si-q-title" style={s.qTitle}>You're safe!</h2>
                 <p style={s.sub}>Topic: <strong style={{ color: "#fff" }}>{game.topic}</strong></p>
-                <div style={s.wordCard}>{game.word}</div>
+                <div className="si-word-card" style={s.wordCard}>{game.word}</div>
                 <p style={s.tinyNote}>Give a hint that proves you know it — without making it too obvious.</p>
               </>
             )}
 
             {isHost ? (
-              <button style={s.startBtn} onClick={readyToHints}>Everyone's Ready — Begin Hints 🎬</button>
+              <button className="si-start-btn" style={s.startBtn} onClick={readyToHints}>Everyone's Ready — Begin Hints 🎬</button>
             ) : (
               <p style={s.waitHostNote}>Waiting for host to begin…</p>
             )}
@@ -288,14 +289,15 @@ export default function SecretImposter() {
         {/* HINTS PHASE */}
         {game.phase === "hints" && (
           <div style={s.center2}>
-            <div style={s.bigEmoji}>💬</div>
-            <h2 style={s.qTitle}>
+            <div className="si-big-emoji" style={s.bigEmoji}>💬</div>
+            <h2 className="si-q-title" style={s.qTitle}>
               {isMyHintTurn ? "Your turn — give a hint!" : `${currentHintPlayer} is thinking…`}
             </h2>
 
             {isMyHintTurn && (
-              <div style={s.hintInputRow}>
+              <div className="si-hint-input-row" style={s.hintInputRow}>
                 <input
+                  className="si-hint-input"
                   style={s.hintInput}
                   placeholder="One word or short phrase…"
                   maxLength={30}
@@ -304,7 +306,7 @@ export default function SecretImposter() {
                   onChange={(e) => setHintInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && submitHint()}
                 />
-                <button style={s.sendHintBtn} onClick={submitHint}>Submit</button>
+                <button className="si-send-hint-btn" style={s.sendHintBtn} onClick={submitHint}>Submit</button>
               </div>
             )}
 
@@ -321,8 +323,8 @@ export default function SecretImposter() {
         {/* VOTING PHASE */}
         {game.phase === "voting" && (
           <div style={s.center2}>
-            <div style={s.bigEmoji}>🗳️</div>
-            <h2 style={s.qTitle}>Who's the imposter?!</h2>
+            <div className="si-big-emoji" style={s.bigEmoji}>🗳️</div>
+            <h2 className="si-q-title" style={s.qTitle}>Who's the imposter?!</h2>
 
             <div style={s.hintsFeed}>
               {Object.entries(game.hints).map(([name, hint]) => (
@@ -332,10 +334,11 @@ export default function SecretImposter() {
               ))}
             </div>
 
-            <div style={s.voteGrid}>
+            <div className="si-vote-grid" style={s.voteGrid}>
               {game.order.map((name) => (
                 <button
                   key={name}
+                  className="si-vote-btn"
                   style={{
                     ...s.voteBtn,
                     ...(selectedVote === name ? s.voteBtnSelected : {}),
@@ -355,8 +358,8 @@ export default function SecretImposter() {
         {/* RESULTS PHASE — the punchline */}
         {game.phase === "results" && (
           <div style={s.center2}>
-            <div style={s.bigEmoji}>{caughtImposter ? "🎉" : "😂"}</div>
-            <h2 style={s.qTitle}>
+            <div className="si-big-emoji" style={s.bigEmoji}>{caughtImposter ? "🎉" : "😂"}</div>
+            <h2 className="si-q-title" style={s.qTitle}>
               {caughtImposter ? "Busted!" : "The imposter got away with it!"}
             </h2>
             <p style={s.sub}>
@@ -374,9 +377,9 @@ export default function SecretImposter() {
             </div>
 
             {isHost ? (
-              <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
-                <button style={s.startBtn} onClick={playAgain}>🔁 Play Again</button>
-                <button style={s.endBtn} onClick={backToLobby}>Back to Lobby</button>
+              <div className="si-results-actions" style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
+                <button className="si-start-btn" style={s.startBtn} onClick={playAgain}>🔁 Play Again</button>
+                <button className="si-end-btn" style={s.endBtn} onClick={backToLobby}>Back to Lobby</button>
               </div>
             ) : (
               <p style={s.waitHostNote}>Waiting for host…</p>
@@ -392,6 +395,44 @@ const globalAnim = `
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
   @keyframes spin { to { transform: rotate(360deg); } }
   @keyframes popIn { from{opacity:0; transform:scale(0.95)} to{opacity:1; transform:scale(1)} }
+
+  .si-vote-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .si-hint-input-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .si-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 480px) {
+    .si-page { padding: 14px 10px 28px !important; }
+    .si-big-emoji { font-size: 38px !important; margin-bottom: 8px !important; }
+    .si-title { font-size: 24px !important; }
+    .si-q-title { font-size: 18px !important; }
+    .si-word-card { font-size: 20px !important; padding: 12px 20px !important; }
+    .si-start-btn, .si-end-btn { padding: 14px 20px !important; font-size: 14px !important; width: 100%; }
+    .si-results-actions { flex-direction: column; }
+    .si-results-actions > button { width: 100%; }
+    .si-vote-grid { grid-template-columns: 1fr; }
+    .si-vote-btn { word-break: break-word; }
+    .si-hint-input-row { flex-direction: column; }
+    .si-hint-input { max-width: 100% !important; }
+    .si-send-hint-btn { width: 100%; }
+    .si-top-bar > * { font-size: 12px !important; padding: 6px 12px !important; }
+    .si-round-badge, .si-back-btn, .si-timer { white-space: nowrap; }
+  }
 `;
 
 const s = {
@@ -422,7 +463,7 @@ const s = {
     display: "inline-block", background: "rgba(139,92,246,0.15)",
     border: "1px solid rgba(139,92,246,0.4)", borderRadius: "16px",
     padding: "16px 32px", color: "#c4b5fd", fontSize: "26px", fontWeight: "800",
-    marginBottom: "16px",
+    marginBottom: "16px", maxWidth: "100%", wordBreak: "break-word",
   },
   startBtn: {
     padding: "16px 32px", borderRadius: "14px", border: "none",
@@ -436,10 +477,7 @@ const s = {
     color: "rgba(255,255,255,0.6)", fontSize: "15px", fontWeight: "700", cursor: "pointer",
   },
   waitHostNote: { color: "rgba(255,255,255,0.3)", fontSize: "13px" },
-  topBar: {
-    display: "flex", justifyContent: "space-between", alignItems: "center",
-    marginBottom: "20px",
-  },
+  topBar: {},
   roundBadge: {
     background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
     borderRadius: "999px", padding: "8px 16px", color: "rgba(255,255,255,0.7)",
@@ -449,16 +487,16 @@ const s = {
     fontSize: "20px", fontWeight: "800", background: "rgba(255,255,255,0.06)",
     padding: "6px 18px", borderRadius: "999px", border: "1px solid rgba(255,255,255,0.1)",
   },
-  hintInputRow: { display: "flex", gap: "8px", justifyContent: "center", marginBottom: "20px" },
+  hintInputRow: {},
   hintInput: {
     background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)",
     borderRadius: "12px", color: "#fff", padding: "12px 16px", fontSize: "15px",
-    outline: "none", maxWidth: "240px",
+    outline: "none", maxWidth: "240px", width: "100%", boxSizing: "border-box",
   },
   sendHintBtn: {
     padding: "12px 20px", borderRadius: "12px", border: "none",
     background: "linear-gradient(135deg, #8b5cf6, #6d28d9)", color: "#fff",
-    fontWeight: "700", cursor: "pointer",
+    fontWeight: "700", cursor: "pointer", whiteSpace: "nowrap",
   },
   hintsFeed: {
     display: "flex", flexDirection: "column", gap: "6px",
@@ -468,10 +506,9 @@ const s = {
   hintChip: {
     textAlign: "left", color: "rgba(255,255,255,0.8)", fontSize: "13px",
     background: "rgba(255,255,255,0.04)", borderRadius: "8px", padding: "6px 10px",
+    wordBreak: "break-word",
   },
-  voteGrid: {
-    display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px",
-  },
+  voteGrid: {},
   voteBtn: {
     padding: "14px", borderRadius: "12px",
     background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)",
@@ -485,6 +522,6 @@ const s = {
   },
   tallyRow: {
     display: "flex", justifyContent: "space-between", color: "rgba(255,255,255,0.75)",
-    fontSize: "13px", fontWeight: "600",
+    fontSize: "13px", fontWeight: "600", gap: "8px",
   },
 };
