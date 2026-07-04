@@ -1,5 +1,4 @@
 // imposterTopics.js
-// Each topic has a "real" word the majority gets, with fun categories for chaos
 
 export const IMPOSTER_TOPICS = [
   { category: "🍎 Fruits", word: "Apple" },
