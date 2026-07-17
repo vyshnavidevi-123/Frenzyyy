@@ -2,9 +2,6 @@
 // Same-browser multiple windows used to collide because everything lived in
 // plain sessionStorage, which is shared by ALL windows of the same browser
 // for the same origin (only true Incognito gets separate storage). This
-// caused two players in the same browser to silently overwrite each other's
-// nickname/host flag, breaking every game in different, confusing ways.
-//
 // Fix: each tab gets its own random playerId on first load, stored in
 // sessionStorage under a CONSTANT key (which is fine — sessionStorage IS
 // per-tab in modern Chrome/Firefox for storage purposes EXCEPT it's actually
